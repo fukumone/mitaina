@@ -1,0 +1,12 @@
+ja:
+  activerecord:
+    attributes:
+      comment:
+        sentence: 言葉
+    errors:
+      models:
+        comment:
+          attributes:
+            sentence:
+              mitina_uniq: の中に<みたいな>があります！
+              danger_word: は登録できません。

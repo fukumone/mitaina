@@ -1,0 +1,36 @@
+<h1 style="display: inline-block;">みたいなSearch</h1>
+<span>イライラを解消する<%= fa_icon('bolt 2x muted') %></span>
+<%= flash_messages %>
+<ul>
+<% @comment.errors.full_messages.each do |error| %>
+  <li><%= error %></li>
+<% end %>
+</ul>
+
+<ul class="comment_form">
+  <%= form_for @comment, { url: :top_index } do |f| %>
+  <li><%= f.label :sentence %></li>
+  <li><%= f.text_field :sentence %></li>
+  <li><%= f.submit "ミタイナ" , class: "btn btn-warning" %></li>
+  <% end %>
+</ul>
+
+<% @comments = Comment.limit(20).order("id desc").group(:sentence).count.keys %>
+
+<% if @comments.present? %>
+<ul>
+  <% @comments.each do |comment| %>
+  <li>
+    <%= comment %>
+  </li>
+  <% end %>
+</ul>
+<% end %>
+
+<h3>みたいなランク</h3>
+<p>つぶやきが多かった<みたいな>のランク</p>
+<ul>
+<% Comment.rank.each do |key, value| %>
+  <li><%= key %> : <%= value %></li>
+<% end %>
+</ul>
