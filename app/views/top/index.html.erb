@@ -1,10 +1,11 @@
 <h1 style="display: inline-block;">みたいなSearch</h1>
 <span>イライラを解消する<%= fa_icon('bolt 2x muted') %></span>
 <%= flash_messages %>
-<ul>
-<% @comment.errors.full_messages.each do |error| %>
-  <li><%= error %></li>
-<% end %>
+
+<ul class="error_messge">
+  <% @comment.errors.full_messages.each do |error| %>
+    <li>※<%= error %></li>
+  <% end %>
 </ul>
 
 <ul class="comment_form">
@@ -21,7 +22,7 @@
 <ul>
   <% @comments.each do |comment| %>
   <li>
-    <%= comment %>
+    <%= comment %>  <%= link_to "いいね！", "/" %> 0count | <%= link_to "くそだね！", "/" %>0count
   </li>
   <% end %>
 </ul>
@@ -34,3 +35,7 @@
   <li><%= key %> : <%= value %></li>
 <% end %>
 </ul>
+
+<h3>くそだねランク</h3>
+
+<h3>いいねランク</h3>

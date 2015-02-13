@@ -10,6 +10,7 @@
 
 class Comment < ActiveRecord::Base
   include DangerWord
+  belongs_to :user
 
   after_create do
     if self.sentence =~ /みたいな/
