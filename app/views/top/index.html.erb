@@ -2,11 +2,13 @@
 <span>イライラを解消する<%= fa_icon('bolt 2x muted') %></span>
 <%= flash_messages %>
 
+<% if @comment.errors.present? %>
 <ul class="error_messge">
   <% @comment.errors.full_messages.each do |error| %>
     <li>※<%= error %></li>
   <% end %>
 </ul>
+<% end %>
 
 <ul class="comment_form">
   <%= form_for @comment, { url: :top_index } do |f| %>
@@ -16,13 +18,17 @@
   <% end %>
 </ul>
 
-<% @comments = Comment.limit(20).order("id desc").group(:sentence).count.keys %>
+<% @comments = Comment.includes(:evaluation).select('id, sentence').limit(20).order("id desc") %>
 
 <% if @comments.present? %>
 <ul>
   <% @comments.each do |comment| %>
   <li>
-    <%= comment %>  <%= link_to "いいね！", "/" %> 0count | <%= link_to "くそだね！", "/" %>0count
+    <%= comment.sentence %><span class="evaluation_good_button">いいね！</span>
+
+    <%= content_tag(:span, '', :class => 'evaluation_count', :data => { :user_id => 1, :comment_id => comment.id, :status => comment.evaluation.status } ) %>Count
+
+    | <span class="evaluation_bad_button">くそだね！</span><%= content_tag(:span, '', :class => 'evaluation_count', :data => { :user_id => 1, :comment_id => comment.id, :status => comment.evaluation.status } ) %>Count
   </li>
   <% end %>
 </ul>

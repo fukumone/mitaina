@@ -3,6 +3,21 @@ Rails.application.routes.draw do
 
   resources :top
 
+  resources :evaluations, only: "" do
+    collection do
+      patch 'good', :defaults => { :format => 'json' }
+      patch 'bad', :defaults => { :format => 'json' }
+    end
+  end
+
+  resource :user do
+    # ネームスペース移行未完了
+    # resource :evaluation, only: "" do
+    #   get 'good', :defaults => { :format => 'json' }
+    #   get 'bad', :defaults => { :format => 'json' }
+    # end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
