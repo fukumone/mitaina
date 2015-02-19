@@ -18,17 +18,18 @@
   <% end %>
 </ul>
 
-<% @comments = Comment.includes(:evaluation).select('id, sentence').limit(20).order("id desc") %>
+<% @comments = Comment.includes(:evaluations).select('id, sentence').limit(20).order("id desc") %>
 
 <% if @comments.present? %>
 <ul>
   <% @comments.each do |comment| %>
-  <li>
-    <%= comment.sentence %><span class="evaluation_good_button">いいね！</span>
-
-    <%= content_tag(:span, '', :class => 'evaluation_count', :data => { :user_id => 1, :comment_id => comment.id, :status => comment.evaluation.status } ) %>Count
-
-    | <span class="evaluation_bad_button">くそだね！</span><%= content_tag(:span, '', :class => 'evaluation_count', :data => { :user_id => 1, :comment_id => comment.id, :status => comment.evaluation.status } ) %>Count
+  <li class="all_evaluation" style="margin: 10px auto;">
+    <%= comment.sentence %>
+    <%= content_tag(:span, '', :class => 'evaluation_count', :data => { :user_id => 1, :comment_id => comment.id, :status => comment.evaluations.size } ) %>Count
+    <span class="btn btn-info evaluation_button" data-evaluation="good">いいね！</span>
+    |
+    <%= content_tag(:span, '', :class => 'evaluation_count', :data => { :user_id => 1, :comment_id => comment.id, :status => comment.evaluations.size } ) %>Count
+    <span class="btn btn-danger evaluation_button" data-evaluation="bad">くそだね！</span>
   </li>
   <% end %>
 </ul>

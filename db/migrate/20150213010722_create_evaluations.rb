@@ -1,6 +1,7 @@
 class CreateEvaluations < ActiveRecord::Migration
   def change
     create_table :evaluations do |t|
+      t.references :user, index: true
       t.references :comment, index: true
       t.integer :status, default: 0
 

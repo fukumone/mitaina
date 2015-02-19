@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150213010722) do
   end
 
   create_table "evaluations", force: :cascade do |t|
+    t.integer  "user_id"
     t.integer  "comment_id"
     t.integer  "status",     default: 0
     t.datetime "created_at",             null: false
@@ -28,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150213010722) do
   end
 
   add_index "evaluations", ["comment_id"], name: "index_evaluations_on_comment_id"
+  add_index "evaluations", ["user_id"], name: "index_evaluations_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "nickname",   null: false

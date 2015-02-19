@@ -12,9 +12,11 @@ Rails.application.routes.draw do
 
   resource :user do
     # ネームスペース移行未完了
-    # resource :evaluation, only: "" do
-    #   get 'good', :defaults => { :format => 'json' }
-    #   get 'bad', :defaults => { :format => 'json' }
+    # resources :evaluation, only: "" do
+    #   collection do
+    #     get 'good', :defaults => { :format => 'json' }
+    #     get 'bad', :defaults => { :format => 'json' }
+    #   end
     # end
   end
 

@@ -1,38 +1,25 @@
 $(document).ready(function(){
-  $('.evaluation_count').text($('.evaluation_count').data('status'));
-
-  $('.evaluation_good_button').click(function(){
-    var evaluation_count = $('.evaluation_count');
-
-    var user_id = evaluation_count.data('user-id');
-    var comment_id = evaluation_count.data('comment-id');
-    var status = evaluation_count.data('status');
-
-    $.ajax({
-      type: "PATCH",
-      url: "evaluations/good",
-      data: { user_id: user_id, comment_id: comment_id, status: status },
-      success: function(data) {
-        console.log(data)
-        $('.evaluation_count').text(data.status);
-      }
-    });
+  $('.all_evaluation').each(function(){
+    var evaluation_count = $(this).find('.evaluation_count');
+    evaluation_count.text(evaluation_count.data('status'));
   });
 
-  $('.evaluation_bad_button').click(function(){
-    var evaluation_count = $('.evaluation_count');
+  var button = $('.evaluation_button');
 
-    var user_id = evaluation_count.data('user-id');
-    var comment_id = evaluation_count.data('comment-id');
-    var status = evaluation_count.data('status');
+  button.click(function(e){
+    var target = $(e.target);
+    var good_or_bad = target.data('evaluation');
+    var prev = target.prev();
+    var user_id = prev.data('user-id');
+    var comment_id = prev.data('comment-id');
+    var status = prev.data('status');
 
     $.ajax({
       type: "PATCH",
-      url: "evaluations/bad",
+      url: "evaluations/" + good_or_bad,
       data: { user_id: user_id, comment_id: comment_id, status: status },
       success: function(data) {
-        console.log(data)
-        $('.evaluation_count').text(data.status);
+        prev.text(data.status);
       }
     });
   });

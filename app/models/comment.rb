@@ -12,7 +12,7 @@
 class Comment < ActiveRecord::Base
   include DangerWord
   belongs_to :user
-  has_one :evaluation
+  has_many :evaluations
 
   after_create do
     if self.sentence =~ /みたいな/
@@ -20,8 +20,6 @@ class Comment < ActiveRecord::Base
     end
     self.sentence = self.sentence + "みたいな"
     self.save!
-
-    Evaluation.create!(comment_id: self.id)
   end
 
   validate :check_mitina_uniq
