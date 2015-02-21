@@ -14,27 +14,27 @@
 ActiveRecord::Schema.define(version: 20150213010722) do
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "sentence",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "evaluations", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "comment_id"
-    t.integer  "status",     default: 0
+    t.integer  "user_id",    limit: 4
+    t.string   "sentence",   limit: 255, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  add_index "evaluations", ["comment_id"], name: "index_evaluations_on_comment_id"
-  add_index "evaluations", ["user_id"], name: "index_evaluations_on_user_id"
+  create_table "evaluations", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "comment_id", limit: 4
+    t.integer  "status",     limit: 4, default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "evaluations", ["comment_id"], name: "index_evaluations_on_comment_id", using: :btree
+  add_index "evaluations", ["user_id"], name: "index_evaluations_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "nickname",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "nickname",   limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end

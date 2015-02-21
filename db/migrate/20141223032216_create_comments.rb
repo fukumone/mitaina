@@ -5,6 +5,6 @@ class CreateComments < ActiveRecord::Migration
       t.string :sentence, null: false
       t.timestamps null: false
     end
-    add_foreign_key(:comments, :users)
+    # add_foreign_key(:comments, :users)
   end
 end
