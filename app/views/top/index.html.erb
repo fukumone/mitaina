@@ -22,13 +22,13 @@
 
 <% if @comments.present? %>
 <ul>
-  <% @comments.each do |comment| %>
+  <% @comments.each_with_index do |comment, index| %>
   <li class="all_evaluation" style="margin: 10px auto;">
     <%= comment.sentence %>
-    <%= content_tag(:span, '', :class => 'evaluation_count', :data => { :user_id => 1, :comment_id => comment.id, :status => comment.evaluations.size } ) %>Count
+    <%= content_tag(:span, '', :class => "evaluation_count good_#{index}", :data => { :user_id => 1, :comment_id => comment.id, :count => comment.total_evaluation(1) } ) %>Count
     <span class="btn btn-info evaluation_button" data-evaluation="good">いいね！</span>
     |
-    <%= content_tag(:span, '', :class => 'evaluation_count', :data => { :user_id => 1, :comment_id => comment.id, :status => comment.evaluations.size } ) %>Count
+    <%= content_tag(:span, '', :class => "evaluation_count bad_#{index}", :data => { :user_id => 1, :comment_id => comment.id, :count => comment.total_evaluation(2) } ) %>Count
     <span class="btn btn-danger evaluation_button" data-evaluation="bad">くそだね！</span>
   </li>
   <% end %>

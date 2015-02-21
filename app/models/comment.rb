@@ -31,7 +31,16 @@ class Comment < ActiveRecord::Base
     Comment.select(:sentence).group(:sentence).count
   end
 
+  def total_evaluation(value)
+    begin
+      evaluations.where(status: value).size
+    rescue
+      0
+    end
+  end
+
   private
+
   def check_mitina_uniq
     if new_record? && self.sentence =~ /みたいな/
       errors.add(:sentence, :mitina_uniq)
