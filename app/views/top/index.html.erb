@@ -1,5 +1,10 @@
-<h1 style="display: inline-block;">みたいなSearch</h1>
-<span>イライラを解消する<%= fa_icon('bolt 2x muted') %></span>
+<div id="title">
+  <h1 style="display: inline-block;">(´∇｀)みたいなSearch</h1>
+  <span>イライラを解消する<%= fa_icon('bolt 2x muted') %></span>
+</div>
+
+<hr>
+
 <%= flash_messages %>
 
 <% if @comment.errors.present? %>
@@ -35,30 +40,33 @@
 </ul>
 <% end %>
 
-<ul style="list-style: none; display: inline;">
-  <li>
-    <h3>みたいなランク</h3>
-    <p>つぶやきが多かった<みたいな>のランク</p>
-    <ul>
+<hr>
+
+<div id="rank">
+  <div id="mitainaRank">
+    <h3 class="titleRank">みたいなランク</h3>
+    <ul class="content">
     <% Comment.rank.each do |key, value| %>
       <li><%= key %> : <%= value %></li>
     <% end %>
     </ul>
-  </li>
-  <li>
-    <h3>くそだねランク</h3>
-    <ul>
+  </div>
+
+  <div id="kusodaneRank">
+    <h3 class="titleRank">くそだねランク</h3>
+    <ul class="content">
       <% Evaluation.includes(:comment).where(status: 2).order(created_at: :desc).limit(10).each do |evaluation| %>
       <li><%= evaluation.comment.sentence %></li>
       <%end %>
     </ul>
-  </li>
-  <li>
-    <h3>いいねランク</h3>
-    <ul>
+  </div>
+
+  <div id="iineRank">
+    <h3 class="titleRank">いいねランク</h3>
+    <ul class="content">
       <% Evaluation.includes(:comment).where(status: 1).order(created_at: :desc).limit(10).each do |evaluation| %>
       <li><%= evaluation.comment.sentence %></li>
       <%end %>
     </ul>
-  </li>
-</ul>
+  </div>
+</div>

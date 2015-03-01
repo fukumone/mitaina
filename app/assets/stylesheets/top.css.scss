@@ -1,6 +1,48 @@
+@import "./_color";
+
+#title{
+  width: 40%;
+  text-align: center;
+  background-color: $yellow;
+  border: solid 1px $yellow_border;
+  border-radius: 4px;
+  margin: 30px 4px;
+  padding: 4px 20px;
+}
+
 .comment_form{
   li{
     display: inline-block;
     list-style-type: none
+  }
+}
+
+.titleRank{
+  margin-left: 30px;
+  padding: 3px;
+  display: inline;
+  text-align: center;
+  border: solid 1px $pink_border;
+  border-radius: 30%;
+  background: $pink;
+}
+
+.content{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#rank{
+  margin: 50px auto;
+  #mitainaRank{
+    float: left;
+  }
+
+  #kusodaneRank{
+    float: left;
+  }
+
+  #iineRank{
+    float: left;
   }
 }
