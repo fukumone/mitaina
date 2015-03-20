@@ -26,8 +26,8 @@ $(document).ready(function(){
       url: "evaluations/" + good_or_bad,
       data: { user_id: user_id, comment_id: comment_id, count: count },
       success: function(data) {
+        console.log(prev)
         prev.text(data.count);
-        console.log(data.count);
         showEvaluation();
       }
     });

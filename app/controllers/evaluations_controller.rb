@@ -22,6 +22,9 @@ class EvaluationsController < ApplicationController
     evaluation.save!
 
     count = Comment.find(params[:comment_id]).total_evaluation(evaluation.status)
+
+    p count
+    p "gerogero" * 10
     render json: { count: count }
   end
 end

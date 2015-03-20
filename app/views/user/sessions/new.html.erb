@@ -1,0 +1,18 @@
+<h3>ログインして下さい。</h3>
+<h1><%= @title %></h1>
+
+<%= flash[:alert] if flash.alert %>
+
+<%= form_for @form, url: :user_session do |f| %>
+  <div>
+    <%= f.label :email, 'メールアドレス' %>
+    <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.label :password, 'パスワード' %>
+    <%= f.password_field :password %>
+  </div>
+  <div>
+    <%= f.submit 'ログイン' %>
+  </div>
+<% end %>
