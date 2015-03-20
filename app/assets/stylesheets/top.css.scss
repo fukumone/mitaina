@@ -17,6 +17,30 @@
   }
 }
 
+.contentLeft{
+  width: 50%;
+  float: left;
+}
+
+.contentRight{
+  width: 50%;
+  float: left;
+  img{
+    border-radius: 50%;
+  }
+  .balloon{
+    padding: 20px 30px;
+    width: 200px;
+    position:absolute;
+    top: 120px;
+    right: 350px;
+    margin-top: 100px;
+    background: #99FFCC;
+    border: solid 1px #00CC66;
+    border-radius: 50%;
+  }
+}
+
 .titleRank{
   margin-left: 30px;
   padding: 3px;
@@ -32,7 +56,8 @@
   margin-left: 10px;
 }
 
-#rank{
+#contentRank{
+  clear: both;
   margin: 50px auto;
   #mitainaRank{
     float: left;

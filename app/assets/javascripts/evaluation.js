@@ -1,9 +1,9 @@
 $(document).ready(function(){
   function showEvaluation(){
     $('.all_evaluation').each(function(index){
-      var index = String(index);
-      var good = $('.all_evaluation').find('.good_' + index);
-      var bad = $('.all_evaluation').find('.bad_' + index);
+      var index = String(index),
+          good = $('.all_evaluation').find('.good_' + index),
+          bad = $('.all_evaluation').find('.bad_' + index);
       good.text(good.data('count'));
       bad.text(bad.data('count'));
     });
@@ -14,12 +14,12 @@ $(document).ready(function(){
   var button = $('.evaluation_button');
 
   button.click(function(e){
-    var target = $(e.target);
-    var good_or_bad = target.data('evaluation');
-    var prev = target.prev();
-    var user_id = prev.data('user-id');
-    var comment_id = prev.data('comment-id');
-    var count = prev.data('count');
+    var target = $(e.target),
+        good_or_bad = target.data('evaluation'),
+        prev = target.prev(),
+        user_id = prev.data('user-id'),
+        comment_id = prev.data('comment-id'),
+        count = prev.data('count');
 
     $.ajax({
       type: "PATCH",

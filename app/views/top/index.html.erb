@@ -5,49 +5,55 @@
 
 <hr>
 
-<%= flash_messages %>
-
-<% if @comment.errors.present? %>
-<ul class="error_messge">
-  <% @comment.errors.full_messages.each do |error| %>
-    <li>※<%= error %></li>
+<div class="contentLeft">
+  <%= flash_messages %>
+  <% if @comment.errors.present? %>
+  <ul class="error_messge">
+    <% @comment.errors.full_messages.each do |error| %>
+      <li>※<%= error %></li>
+    <% end %>
+  </ul>
   <% end %>
-</ul>
-<% end %>
 
-<ul class="comment_form">
-  <%= form_for @comment, { url: :top_index } do |f| %>
-  <li><%= f.label :sentence %></li>
-  <li><%= f.text_field :sentence %></li>
-  <li><%= f.submit "ミタイナ" , class: "btn btn-warning" %></li>
+  <ul class="comment_form">
+    <%= form_for @comment, { url: :top_index } do |f| %>
+    <li><%= f.label :sentence %></li>
+    <li><%= f.text_field :sentence %></li>
+    <li><%= f.submit "ミタイナ" , class: "btn btn-warning" %></li>
+    <% end %>
+  </ul>
+
+  <% @comments = Comment.includes(:evaluations).select('id, sentence').limit(20).order("id desc") %>
+
+  <% if @comments.present? %>
+  <ul>
+    <% @comments.each_with_index do |comment, index| %>
+    <li class="all_evaluation" style="margin: 10px auto;">
+      <%= comment.sentence %>
+      <%= content_tag(:span, '', :class => "evaluation_count good_#{index}", :data => { :user_id => 1, :comment_id => comment.id, :count => comment.total_evaluation(1) } ) %>Count
+      <span class="btn btn-info evaluation_button" data-evaluation="good">いいね！</span>
+      |
+      <%= content_tag(:span, '', :class => "evaluation_count bad_#{index}", :data => { :user_id => 1, :comment_id => comment.id, :count => comment.total_evaluation(2) } ) %>Count
+      <span class="btn btn-danger evaluation_button" data-evaluation="bad">くそだね！</span>
+    </li>
+    <% end %>
+  </ul>
   <% end %>
-</ul>
+</div>
 
-<% @comments = Comment.includes(:evaluations).select('id, sentence').limit(20).order("id desc") %>
+<div class="contentRight">
+  <%= image_tag("are_you_gorira.jpg") %>
+  <span class="balloon">登録はこちらから！</span>
+</div>
 
-<% if @comments.present? %>
-<ul>
-  <% @comments.each_with_index do |comment, index| %>
-  <li class="all_evaluation" style="margin: 10px auto;">
-    <%= comment.sentence %>
-    <%= content_tag(:span, '', :class => "evaluation_count good_#{index}", :data => { :user_id => 1, :comment_id => comment.id, :count => comment.total_evaluation(1) } ) %>Count
-    <span class="btn btn-info evaluation_button" data-evaluation="good">いいね！</span>
-    |
-    <%= content_tag(:span, '', :class => "evaluation_count bad_#{index}", :data => { :user_id => 1, :comment_id => comment.id, :count => comment.total_evaluation(2) } ) %>Count
-    <span class="btn btn-danger evaluation_button" data-evaluation="bad">くそだね！</span>
-  </li>
-  <% end %>
-</ul>
-<% end %>
-
-<hr>
-
-<div id="rank">
+<div id="contentRank">
+  <br>
+  <hr>
   <div id="mitainaRank">
     <h3 class="titleRank">みたいなランク</h3>
     <ul class="content">
     <% Comment.rank.each do |key, value| %>
-      <li><%= key %> : <%= value %></li>
+      <li><%= truncate(key, length: 15, omission: "...") %> : <%= value %></li>
     <% end %>
     </ul>
   </div>
@@ -56,7 +62,7 @@
     <h3 class="titleRank">くそだねランク</h3>
     <ul class="content">
       <% Evaluation.includes(:comment).where(status: 2).order(created_at: :desc).limit(10).each do |evaluation| %>
-      <li><%= evaluation.comment.sentence %></li>
+      <li><%= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
       <%end %>
     </ul>
   </div>
@@ -65,7 +71,7 @@
     <h3 class="titleRank">いいねランク</h3>
     <ul class="content">
       <% Evaluation.includes(:comment).where(status: 1).order(created_at: :desc).limit(10).each do |evaluation| %>
-      <li><%= evaluation.comment.sentence %></li>
+      <li><%= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
       <%end %>
     </ul>
   </div>
