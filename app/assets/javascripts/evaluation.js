@@ -6,8 +6,8 @@ $(document).ready(function(){
       var index = String(index),
           good = $('.all_evaluation').find('.good_' + index),
           bad = $('.all_evaluation').find('.bad_' + index);
-      good.text(good.data('count'));
-      bad.text(bad.data('count'));
+      good.text(good.data('goodCount'));
+      bad.text(bad.data('badCount'));
     });
   }
 
@@ -19,24 +19,33 @@ $(document).ready(function(){
         prev = target.prev(),
         user_id = prev.data('user-id'),
         comment_id = prev.data('comment-id'),
-        count = prev.data('count');
+        className = prev.attr('class').split(' ')[1],
+        goodClass,
+        badClass,
+        good_count,
+        bad_count;
+
+        if (className.match(/^good_/)){
+          badClass = className.replace(/good/, '.bad');
+          bad_count = $(badClass).data('badCount');
+        }else{
+          goodClass = className.replace(/bad/, '.good');
+          good_count = $(goodClass).data('goodCount');
+        }
 
     $.ajax({
       type: "PATCH",
       url: "evaluations/" + good_or_bad,
-      data: { user_id: user_id, comment_id: comment_id, count: count },
+      data: { user_id: user_id, comment_id: comment_id, good_count: good_count, bad_count: bad_count },
       success: function(data) {
-        var className = prev.attr('class').split(' ')[1],
-            good_or_bad;
 
         if (className.match(/^good_/)){
-          good_or_bad = className.replace(/good/, '.bad');
-          $(good_or_bad).text(data.count - 1);
+          prev.text(data.good_count);
+          $(badClass).text(data.bad_count);
         }else{
-          good_or_bad = className.replace(/bad/, '.good');
-          $(good_or_bad).text(data.count - 1);
+          prev.text(data.bad_count);
+          $(goodClass).text(data.good_count);
         }
-        prev.text(data.count);
       }
     });
   });

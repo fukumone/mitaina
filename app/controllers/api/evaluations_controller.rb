@@ -21,17 +21,9 @@ class Api::EvaluationsController < ApplicationController
     end
     evaluation.save!
 
-    count = Comment.find(params[:comment_id]).total_evaluation(evaluation.status)
+    good_count = Comment.find(params[:comment_id]).total_evaluation(1)
+    bad_count = Comment.find(params[:comment_id]).total_evaluation(2)
 
-    render json: { count: count }
+    render json: { good_count: good_count, bad_count: bad_count }
   end
 end
-
-# def total_evaluation(value)
-#   begin
-#     evaluations.where(status: value).size
-#   rescue
-#     0
-#   end
-# end
-
