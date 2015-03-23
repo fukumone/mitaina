@@ -1,4 +1,6 @@
 $(document).ready(function(){
+  var button = $('.evaluation_button');
+
   function showEvaluation(){
     $('.all_evaluation').each(function(index){
       var index = String(index),
@@ -10,8 +12,6 @@ $(document).ready(function(){
   }
 
   showEvaluation();
-
-  var button = $('.evaluation_button');
 
   button.click(function(e){
     var target = $(e.target),
@@ -26,9 +26,17 @@ $(document).ready(function(){
       url: "evaluations/" + good_or_bad,
       data: { user_id: user_id, comment_id: comment_id, count: count },
       success: function(data) {
-        console.log(prev)
+        var className = prev.attr('class').split(' ')[1],
+            good_or_bad;
+
+        if (className.match(/^good_/)){
+          good_or_bad = className.replace(/good/, '.bad');
+          $(good_or_bad).text(data.count - 1);
+        }else{
+          good_or_bad = className.replace(/bad/, '.good');
+          $(good_or_bad).text(data.count - 1);
+        }
         prev.text(data.count);
-        showEvaluation();
       }
     });
   });

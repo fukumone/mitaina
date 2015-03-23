@@ -1,4 +1,4 @@
-class EvaluationsController < ApplicationController
+class Api::EvaluationsController < ApplicationController
 
   # Ajax PATCH
   def good
@@ -13,6 +13,7 @@ class EvaluationsController < ApplicationController
   private
   def common(value)
     evaluation = Evaluation.find_or_create_by(user_id: params[:user_id], comment_id: params[:comment_id])
+
     if evaluation.status == value
       evaluation.status = 0 #評価保留
     else
@@ -25,3 +26,12 @@ class EvaluationsController < ApplicationController
     render json: { count: count }
   end
 end
+
+# def total_evaluation(value)
+#   begin
+#     evaluations.where(status: value).size
+#   rescue
+#     0
+#   end
+# end
+
