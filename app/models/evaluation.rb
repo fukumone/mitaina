@@ -15,7 +15,7 @@
 #  index_evaluations_on_user_id     (user_id)
 #
 
-# status: { non:0(評価保留), good:1(いいね), bad:2(くそだね) }s
+# status: { non:0(評価保留), good:1(いいね), bad:2(くそだね) }
 
 class Evaluation < ActiveRecord::Base
   belongs_to :user

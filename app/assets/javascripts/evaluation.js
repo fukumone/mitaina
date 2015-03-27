@@ -2,10 +2,12 @@ $(document).ready(function(){
   var button = $('.evaluation_button');
 
   function showEvaluation(){
-    $('.all_evaluation').each(function(index){
+    var all_evaluation = $('.all_evaluation');
+
+    all_evaluation.each(function(index){
       var index = String(index),
-          good = $('.all_evaluation').find('.good_' + index),
-          bad = $('.all_evaluation').find('.bad_' + index);
+          good = all_evaluation.find('.good_' + index),
+          bad = all_evaluation.find('.bad_' + index);
       good.text(good.data('goodCount'));
       bad.text(bad.data('badCount'));
     });

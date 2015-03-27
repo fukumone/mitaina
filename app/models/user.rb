@@ -3,7 +3,8 @@
 # Table name: users
 #
 #  id         :integer          not null, primary key
-#  nickname   :string           not null
+#  nickname   :string(255)      not null
+#  suspended  :boolean          default("0"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
