@@ -28,7 +28,7 @@ class Comment < ActiveRecord::Base
   validates :sentence, presence: true
 
   def self.rank
-    Comment.select(:sentence).group(:sentence).count
+    Comment.select(:sentence).group(:sentence).size
   end
 
   def total_evaluation(value)

@@ -2,7 +2,7 @@ class User::SessionsController < User::Base
   skip_before_action :authorize
 
   def new
-    if current_user
+    if login_user
       redirect_to :user_root
     else
       @form = User::LoginForm.new
@@ -12,8 +12,8 @@ class User::SessionsController < User::Base
 
   def create
     @form = User::LoginForm.new(params[:user_login_form])
-    if @form.email.present?
-      user = User.find_by(email_for_index: @form.email.downcase)
+    if @form.nickname.present?
+      user = User.find_by(nickname: @form.nickname)
     end
     if User::Authenticator.new(user).authenticate(@form.password)
       if user.suspended?

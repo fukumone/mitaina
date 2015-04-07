@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem "font-awesome-rails"
 gem 'rails-i18n'
+gem 'bcrypt', '~> 3.1.7'
 
 group :development do
   gem 'quiet_assets', '~> 1.0.3'
@@ -26,4 +27,3 @@ group :development, :test do
   gem 'byebug'
   gem 'spring'
 end
-

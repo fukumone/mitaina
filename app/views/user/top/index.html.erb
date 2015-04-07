@@ -21,14 +21,14 @@
   <% end %>
 
   <ul class="comment_form">
-    <%= form_for @comment, { url: :top_index } do |f| %>
+    <%= form_for @comment, { url: :user_root } do |f| %>
     <li><%= f.label :sentence %></li>
     <li><%= f.text_field :sentence %></li>
     <li><%= f.submit "ミタイナ" , class: "btn btn-warning" %></li>
     <% end %>
   </ul>
 
-  <% @comments = Comment.includes(:evaluations).select('id, sentence').limit(20).order("id desc") %>
+  <% @comments = Comment.preload(:evaluations).select('id, sentence').limit(20).order("id desc") %>
 
   <% if @comments.present? %>
   <ul>
@@ -66,7 +66,7 @@
   <div id="kusodaneRank">
     <h3 class="titleRank">くそだねランク</h3>
     <ul class="content">
-      <% Evaluation.includes(:comment).where(status: 2).order(created_at: :desc).limit(10).each do |evaluation| %>
+      <% Evaluation.preload(:comment).where(status: 2).order(created_at: :desc).limit(10).each do |evaluation| %>
       <li><%= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
       <%end %>
     </ul>
@@ -75,7 +75,7 @@
   <div id="iineRank">
     <h3 class="titleRank">いいねランク</h3>
     <ul class="content">
-      <% Evaluation.includes(:comment).where(status: 1).order(created_at: :desc).limit(10).each do |evaluation| %>
+      <% Evaluation.preload(:comment).where(status: 1).order(created_at: :desc).limit(10).each do |evaluation| %>
       <li><%= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
       <%end %>
     </ul>

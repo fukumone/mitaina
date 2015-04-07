@@ -32,10 +32,11 @@ ActiveRecord::Schema.define(version: 20150213010722) do
   add_index "evaluations", ["user_id"], name: "index_evaluations_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "nickname",   limit: 255,                 null: false
-    t.boolean  "suspended",  limit: 1,   default: false, null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "nickname",        limit: 255,                 null: false
+    t.string   "hashed_password", limit: 255
+    t.boolean  "suspended",       limit: 1,   default: false, null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
 end

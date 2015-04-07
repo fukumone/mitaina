@@ -1,7 +1,7 @@
 def create_setting(options)
   count = options[:nickname].count
   count.times do |ind|
-    user = User.create(nickname: options[:nickname][ind])
+    user = User.create(nickname: options[:nickname][ind], password: 'password')
     Comment.create(sentence: options[:comment][ind], user: user)
   end
 end
