@@ -1,7 +1,10 @@
 def create_setting(options)
   count = options[:nickname].count
   count.times do |ind|
-    user = User.create(nickname: options[:nickname][ind], password: 'password')
+    user = User.create(
+      nickname: options[:nickname][ind],
+      display_name: options[:display_name][ind],
+      password: 'password')
     Comment.create(sentence: options[:comment][ind], user: user)
   end
 end
@@ -21,6 +24,14 @@ options = {
     "江戸川のハゼ",
     "ダスティンホフマン",
     "ミケランジェロ"
+  ],
+  display_name: [
+    "test1",
+    "test2",
+    "test3",
+    "test4",
+    "test5",
+    "test6"
   ],
   comment: [
     "馬鹿王",

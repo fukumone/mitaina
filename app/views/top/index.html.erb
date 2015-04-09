@@ -4,41 +4,22 @@
 </div>
 
 <div id="user_information">
-  <%= link_to 'ログアウト', :session, method: :delete %>
+  <%= link_to 'ログインはこちらから', :login %>
 </div>
 
 <hr>
 
 <div class="contentLeft">
-  <%= flash_messages %>
-  <% if @comment.errors.present? %>
-  <ul class="error_messge">
-    <% @comment.errors.full_messages.each do |error| %>
-      <li>※<%= error %></li>
-    <% end %>
-  </ul>
-  <% end %>
-
-  <ul class="comment_form">
-    <%= form_for @comment, { url: :user_top, method: :post } do |f| %>
-    <li><%= f.label :sentence %></li>
-    <li><%= f.text_field :sentence %></li>
-    <li><%= f.submit "ミタイナ" , class: "btn btn-warning" %></li>
-    <% end %>
-  </ul>
-
-  <% @comments = Comment.preload(:evaluations).select('id, sentence').limit(20).order("id desc") %>
-
   <% if @comments.present? %>
   <ul>
     <% @comments.each_with_index do |comment, index| %>
-    <li class="all_evaluation" style="margin: 10px auto;">
+    <li style="margin: 10px auto;">
       <%= comment.sentence %>
-      <%= content_tag(:span, '', :class => "evaluation_count good_#{index}", :data => { :user_id => 1, :comment_id => comment.id, :good_count => comment.total_evaluation(1) } ) %>Count
-      <span class="btn btn-info evaluation_button" data-evaluation="good">いいね！</span>
+      Count
+      <span class="btn btn-info">いいね！</span>
       |
-      <%= content_tag(:span, '', :class => "evaluation_count bad_#{index}", :data => { :user_id => 1, :comment_id => comment.id, :bad_count => comment.total_evaluation(2) } ) %>Count
-      <span class="btn btn-danger evaluation_button" data-evaluation="bad">くそだね！</span>
+      Count
+      <span class="btn btn-danger">くそだね！</span>
     </li>
     <% end %>
   </ul>
@@ -67,7 +48,7 @@
     <ul class="content">
       <% Evaluation.preload(:comment).where(status: 2).order(created_at: :desc).limit(10).each do |evaluation| %>
       <li><%#= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
-      <%end %>
+      <% end %>
     </ul>
   </div>
 
@@ -76,7 +57,7 @@
     <ul class="content">
       <% Evaluation.preload(:comment).where(status: 1).order(created_at: :desc).limit(10).each do |evaluation| %>
       <li><%#= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
-      <%end %>
+      <% end %>
     </ul>
   </div>
 </div>

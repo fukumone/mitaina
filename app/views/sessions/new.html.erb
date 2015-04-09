@@ -3,10 +3,10 @@
 
 <%= flash_messages %>
 
-<%= form_for @form, url: :user_session do |f| %>
+<%= form_for @form, url: :session do |f| %>
   <div>
-    <%= f.label :nickname, 'ニックネーム' %>
-    <%= f.text_field :nickname %>
+    <%= f.label :display_name, 'ID' %>
+    <%= f.text_field :display_name %>
   </div>
   <div>
     <%= f.label :password, 'パスワード' %>

@@ -1,8 +1,22 @@
+class UserNamespaceConstraint
+  def self.matches?(request)
+    arr = request.path_info.split("/")
+    arr.count > 1 && User.exists?(display_name: arr[1])
+  end
+end
+
 Rails.application.routes.draw do
-  namespace :user, path: '/' do
-    root 'top#index'
-    get 'login' => 'sessions#new', as: :login
-    resource :session, only: [ :create, :destroy ]
+  root 'top#index'
+  get 'login' => 'sessions#new', as: :login
+  resource :session, only: [ :create, :destroy ]
+
+  constraints(UserNamespaceConstraint) do
+    scope "/:display_name" do
+      namespace :user, path: '/' do
+        root 'top#index'
+        post 'top', to: "top#create"
+      end
+    end
   end
 
   namespace :api, path: '/' do
@@ -13,5 +27,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
 end

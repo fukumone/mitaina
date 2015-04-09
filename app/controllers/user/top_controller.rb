@@ -1,4 +1,4 @@
-class User::TopController < User::Base
+class User::TopController < ApplicationController
   def index
     @comment = Comment.new
   end
@@ -7,7 +7,7 @@ class User::TopController < User::Base
     @comment = Comment.new(comment_params)
     if @comment.save
       flash.notice = "「みたいな」言葉のつぶやきに成功みたいな(￣▽￣)ノ＿彡☆バンバン！"
-      redirect_to :top_index
+      redirect_to :user_root
     else
       flash.alert = "「みたいな」言葉のつぶやきに失敗みたいな....ｱﾜ((ﾟﾟддﾟﾟ ))ﾜﾜ!!"
       render "index"
