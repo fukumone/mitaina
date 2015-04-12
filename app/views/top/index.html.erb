@@ -15,10 +15,10 @@
     <% @comments.each_with_index do |comment, index| %>
     <li style="margin: 10px auto;">
       <%= comment.sentence %>
-      Count
+      <%= comment.total_evaluation(1) %>Count
       <span class="btn btn-info">いいね！</span>
       |
-      Count
+      <%= comment.total_evaluation(2) %>Count
       <span class="btn btn-danger">くそだね！</span>
     </li>
     <% end %>
@@ -47,7 +47,9 @@
     <h3 class="titleRank">くそだねランク</h3>
     <ul class="content">
       <% Evaluation.preload(:comment).where(status: 2).order(created_at: :desc).limit(10).each do |evaluation| %>
-      <li><%#= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
+        <% if evaluation.comment.present? %>
+        <li><%= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
+        <% end %>
       <% end %>
     </ul>
   </div>
@@ -56,7 +58,9 @@
     <h3 class="titleRank">いいねランク</h3>
     <ul class="content">
       <% Evaluation.preload(:comment).where(status: 1).order(created_at: :desc).limit(10).each do |evaluation| %>
-      <li><%#= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
+        <% if evaluation.comment.present? %>
+        <li><%= truncate(evaluation.comment.sentence, length: 15, omission: "...") %></li>
+        <% end %>
       <% end %>
     </ul>
   </div>
